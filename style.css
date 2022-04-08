@@ -88,11 +88,13 @@ body{
     justify-content: center;
     align-items: center;
     font-size: 0.9rem;
+    max-width: 4rem;
 }
 
 .answerImage {
     height: 4rem;
     max-width: auto;
+    margin-top: 1rem;
 }
 
 .input{
