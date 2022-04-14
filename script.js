@@ -30,8 +30,20 @@ const config = {
         "https://a.storyblok.com/f/112136/446x446/3a9b2b88c1/6.png",
         "https://a.storyblok.com/f/112136/446x446/d4cf5fb7e5/5.png",
         "https://a.storyblok.com/f/112136/446x446/189243343c/8.png"
-    ]
+    ],
+    header_img_on: false,
+    header_img:"https://a.storyblok.com/f/112136/130x160/731788149f/avatar_matt-owen.png"
 }
+
+const image = document.getElementById('image')
+
+if (config.header_img_on) {
+    image.src = config.header_img
+    image.style.display = 'flex'
+}else{
+    image.style.display = 'none'
+} 
+
 
 const title = document.getElementById('title')
 title.textContent = config.title
