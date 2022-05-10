@@ -32,7 +32,7 @@ const config = {
         "https://a.storyblok.com/f/112136/446x446/189243343c/8.png"
     ],
     header_img_on: false,
-    header_img:"https://a.storyblok.com/f/112136/130x160/731788149f/avatar_matt-owen.png"
+    header_img: "https://a.storyblok.com/f/112136/130x160/731788149f/avatar_matt-owen.png"
 }
 
 const image = document.getElementById('image')
@@ -40,9 +40,9 @@ const image = document.getElementById('image')
 if (config.header_img_on) {
     image.src = config.header_img
     image.style.display = 'flex'
-}else{
+} else {
     image.style.display = 'none'
-} 
+}
 
 
 const title = document.getElementById('title')
@@ -74,7 +74,6 @@ config.text_answers.forEach(e => {
     j++
 })
 
-
 const answers = document.querySelectorAll('.answer')
 
 let k = 0
@@ -88,27 +87,50 @@ answers.forEach(element => {
 
 const reveal = document.getElementById("revealAnswers")
 const tryAgain = document.getElementById("tryAgain")
+const proceed = document.getElementById("proceed")
+const inputs = document.querySelectorAll('.input')
+const lowerAnswers = config.text_answers.map(element => {
+    return element.toLowerCase().trim().replace(/ /g, "");
+})
+
+const instructions = document.getElementById("instructions")
+instructions.textContent =  "Click next video to proceed."
+instructions.style.display = 'none'
 
 reveal.addEventListener('click', () => {
+    proceed.style.display = 'flex';
     reveal.style.display = 'none';
-    tryAgain.style.display = 'flex';
     checkContainer.style.display = 'flex';
-    const inputs = document.querySelectorAll('.input')
-    const lowerAnswers = config.text_answers.map(element => {
-        return element.toLowerCase().trim().replace(/ /g, "");
-    })
-
     inputs.forEach(element => {
         const userAnswer = element.value.toLowerCase().trim().replace(/ /g, "");
         if (lowerAnswers.includes(userAnswer)) {
             element.className = 'inputCorrect'
             element.style.pointerEvents = 'none'
+            instructions.style.display = 'none'
         } else {
             element.className = 'inputIncorrect'
             element.style.pointerEvents = 'none'
+            tryAgain.style.display = 'flex';
+            instructions.style.display = 'none'
         }
     });
 })
+
+const mainContainer = document.getElementById("mainContainer");
+const endContainer =  document.getElementById("celebrationContainer");
+const endImage = document.getElementById("celebration");
+const endMessage = document.getElementById("thankYou");
+
+endContainer.style.display = 'none'
+endMessage.textContent = "Well done! Click the \"Next Video\" button to proceed now."
+endImage.src = 'https://a.storyblok.com/f/112136/205x150/12867bb205/sporting-hero.png'
+
+const endScreen = () => {
+    endContainer.style.display = 'flex';
+    mainContainer.style.display = 'none';
+}
+
+proceed.addEventListener('click', endScreen)
 
 tryAgain.addEventListener('click', () => {
     window.location.reload()
